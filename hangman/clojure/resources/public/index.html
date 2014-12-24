@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hangman</title>
+		<link rel="stylesheet" href="/css/kube.min.css" />
+		<style>
+body {
+	max-width: 40em;
+	margin-left: auto;
+	margin-right: auto;
+}
+		</style>
+		<script type="text/x-handlebars" data-template-name="index">
+			<h1>Hangman v1</h1>
+			<ul>
+				<li>{{#link-to 'random'}}Play with a random word{{/link-to}}</li>
+			</ul>
+		</script>
+		<script type="text/x-handlebars" data-template-name="random">
+			<span>Please wait while a random word is selected...</span>
+		</script>
+		<script type="text/x-handlebars" data-template-name="game-over">
+			<h1>Sorry, game over...</h1>
+			{{#link-to 'random'}}Try with another word{{/link-to}}
+		</script>
+		<script type="text/x-handlebars" data-template-name="win">
+			<h1>Hooray, you won!</h1>
+			{{#link-to 'random'}}Play again with another word{{/link-to}}
+		</script>
+		<script type="text/x-handlebars" data-template-name="letter">
+				<div class="unit-20"><button class="btn"
+					{{bind-attr disabled=selected}}
+					{{action 'selectLetter' this}}>{{model}}</button></div>
+		</script>
+		<script type="text/x-handlebars" data-template-name="word">
+			<div>
+				<table>
+					<tr>
+						{{#each word_letters.[]}}
+							<td>{{this}}</td>
+						{{/each}}
+					</tr>
+				</table>
+			</div>
+			<span>You have {{tries}} tries left</span>
+			{{#each rows}}
+				<div class="units-row">
+					{{#each letters}}
+						{{render 'letter' this}}
+					{{/each}}
+				</div>
+			{{/each}}
+			</div>
+		</script>
+	</head>
+	<body>
+		<script type="text/x-handlebars">
+			<div>{{outlet}}</div>
+		</script>
+	</body>
+	<script type="text/javascript" src="http://cdn.jsdelivr.net/webjars/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jsdelivr.net/webjars/handlebars/2.0.0-1/handlebars.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jsdelivr.net/webjars/emberjs/1.9.0/ember.min.js"></script>
+	<script type="text/javascript" src="/scripts/hangman.js"></script>
+</html>
